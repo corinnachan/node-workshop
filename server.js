@@ -1,5 +1,6 @@
 var http = require('http');
 var fs = require('fs');
+var querystring = require('querystring');
 
 var message = 'I am so happy to be part of the Node Girls workshop!';
 var nodeMessage = 'This is the message for Node endpoint!';
@@ -23,16 +24,34 @@ function handler (request, response) {
       response.end(file);
     });
   } else if (endpoint === '/node') {
-    response.writeHead(200, {'Content-type': 'text/html'});
-    response.write(nodeMessage);
-    response.end();
+      response.writeHead(200, {'Content-type': 'text/html'});
+      response.write(nodeMessage);
+      response.end();
 
   } else if (endpoint === '/girls') {
-    response.writeHead(200, {'Content-type': 'text/html'});
-    response.write(girlsMessage);
-    response.end();
+      response.writeHead(200, {'Content-type': 'text/html'});
+      response.write(girlsMessage);
+      response.end();
 
-  } else {
+  } else if (endpoint === '/create-post'){
+      var allTheData = '';
+      request.on('data', function (chunkOfData) {
+
+        allTheData += chunkOfData;
+      });
+
+      request.on('end', function () {
+
+        var convertedData = querystring.parse(allTheData);
+        console.log(convertedData);
+        response.writeHead(302, {'Location': '/'})
+        response.end();
+      });
+  }
+
+
+
+  else {
     response.writeHead(200);
     fs.readFile(__dirname + '/public/' + endpoint, function (error, file) {
       if (error) {
@@ -44,7 +63,10 @@ function handler (request, response) {
   }
 
 
+
 }
+
+
 
 var server = http.createServer(handler);
 
