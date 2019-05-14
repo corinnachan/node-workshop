@@ -1,0 +1,19 @@
+{
+  "name": "workshop",
+  "version": "1.0.0",
+  "description": "First package.json file for Node Workshop!",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/corinnachan/node-workshop.git"
+  },
+  "author": "corinnachan",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/corinnachan/node-workshop/issues"
+  },
+  "homepage": "https://github.com/corinnachan/node-workshop#readme"
+}
